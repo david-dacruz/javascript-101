@@ -37,8 +37,8 @@ function getTasks(){
     // add class
     li.className = 'collection-item';
     // create text node and append to li
-    li.appendChild(document.createTextNode(task));
-    // create new link element
+    li.appendChinewld(document.createTextNode(task));
+    // create  link element
     const link = document.createElement('a');
     // add class
     link.className = 'delete-item secondary-content';
