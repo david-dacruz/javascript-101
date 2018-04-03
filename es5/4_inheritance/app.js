@@ -1,45 +1,42 @@
-// Object.prototype
-// Person.prototype
-
-function Person(firstName, lastName, dob){
+// person constructor
+function Person(firstName, lastName) {
   this.firstName = firstName;
   this.lastName = lastName;
-  this.birthday = new Date(dob);
-  
-  // this.calculateAge = function(){
-  //   const diff = Date.now() - this.birthday.getTime();
-  //   const ageDate = new Date(diff);
-  //   return Math.abs(ageDate.getUTCFullYear() - 1970);
-  // }
 }
 
-// calculate age 
-Person.prototype.calculateAge = function(){
-                                  const diff = Date.now() - this.birthday.getTime();
-                                  const ageDate = new Date(diff);
-                                  return Math.abs(ageDate.getUTCFullYear() - 1970);
-                                }
+// greeting
+Person.prototype.greeting = function(){
+  return `Hello there ${this.firstName} ${this.lastName}`
+}
 
-// get full name
-Person.prototype.getFullName = function(){
-                                return `${this.firstName} ${this.lastName}`
-                                }
+const person1 = new Person('david', 'dacruz');
 
-// gets married
-Person.prototype.getsMaried = function(newlastName){
-                                this.lastName = newlastName;
-                              }
+console.log(person1.greeting());
 
-const david = new Person('david', 'dacruz', '04-22-1988');
-const mary = new Person('mary', 'doe', 'April 22 1988');
+// customer constructor
+function Customer(firstName, lastName, phone, membership){
+  // call https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Function/call
+  // this referes to object and then call the properties 
+  // that refer to the object
+  Person.call(this, firstName, lastName);
+  this.phone = phone;
+  this.membership = membership;
+}
 
-console.log(david.getFullName());
-console.log(mary.calculateAge());
-console.log(mary.getFullName());
-mary.getsMaried('dacruz');
-console.log(mary.getFullName());
+// inherit the Person prototype methods
+Customer.prototype = Object.create(Person.prototype);
+// make customer.prototype return customer
+Customer.prototype.constructor = Customer;
 
+const customer1 = new Customer('Tom', 'Smith', '555-555-5555', 'Standard membership');
 
-// access Object.prototype
-console.log(mary.hasOwnProperty('firstName'));
-console.log(mary.hasOwnProperty('getFullName'));
+console.log(customer1);
+
+// overidde the person prototype constructor
+Customer.prototype.greeting = function(){
+  return `Hello there ${this.firstName} ${this.lastName} welcome to our company`
+}
+
+// if no heritage
+// Uncaught TypeError: customer1.greeting is not a function 
+console.log(customer1.greeting());
