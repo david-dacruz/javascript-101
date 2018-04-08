@@ -12,25 +12,19 @@ document.getElementById('button3')
   // get local text file
 function getText(){
   fetch('data.txt')
-    .then(function(response){
-     return response.text();
-    })
-    .then(function(data){
+    .then(response => response.text())
+    .then(data => {
       console.log(data);
       document.getElementById('output').innerHTML = data;
     })
-    .catch(function(error){
-      console.log(error);
-    });
+    .catch(error => console.log(error));
 }
 
 // get local json data 
 function getJson(){
   fetch('data.json')
-    .then(function(response){
-     return response.json();
-    })
-    .then(function(posts){
+    .then(response => response.json())
+    .then(posts => {
       console.log(posts);
       let output = '';
 
@@ -40,18 +34,14 @@ function getJson(){
 
       document.getElementById('output').innerHTML = output;
     })
-    .catch(function(error){
-      console.log(error);
-    });
+    .catch(error => console.log(error));
 }
 
 // get local json data 
 function getExternal(){
   fetch('https://api.github.com/users')
-    .then(function(response){
-     return response.json();
-    })
-    .then(function(users){
+    .then(response => response.json())
+    .then(users => {
       console.log(users);
       let output = '';
 
@@ -61,8 +51,6 @@ function getExternal(){
 
       document.getElementById('output').innerHTML = output;
     })
-    .catch(function(error){
-      console.log(error);
-    });
+    .catch(error => console.log(error));
 }
 
